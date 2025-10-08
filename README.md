@@ -1,3 +1,5 @@
+<img width="1246" height="870" alt="image" src="https://github.com/user-attachments/assets/629f1f36-fa86-4ebc-ac62-d65534111034" />
+<img width="1253" height="866" alt="image" src="https://github.com/user-attachments/assets/ea21a9e8-1c64-4ee9-a306-57b06b774644" />
 
 ## 📰 Project: **Material UI News Explorer**
 
