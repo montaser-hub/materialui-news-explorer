@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export const axoinstance = axios.create({
-  baseURL: "https://newsapi.org/v2", 
+  baseURL: "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2", 
 });
 
 axoinstance.interceptors.request.use(

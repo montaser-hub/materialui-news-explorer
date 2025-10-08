@@ -31,10 +31,6 @@ export default function NavActions({
 
   return (
     <Box display="flex" alignItems="center" gap={1.5}>
-      {/* Cart */}
-      <IconButton color="inherit">
-        <ShoppingCartIcon />
-      </IconButton>
 
       {/* Notifications */}
       <IconButton color="inherit" onClick={openNotif}>

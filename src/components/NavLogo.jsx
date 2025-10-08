@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
+import logoWithe from "../assets/white_on_trans.png";
+import logoDark from "../assets/logo.png";
 
 export default function NavLogo() {
   const myTheme = useSelector((state) => state.theme);
 
   const logoSrc =
     myTheme === "light"
-      ? "/src/assets/logo.png"
-      : "/src/assets/white_on_trans.png";
+      ? {logoWithe}
+      : {logoDark};
 
   return (
     <Box
