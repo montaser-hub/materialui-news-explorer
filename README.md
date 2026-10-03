@@ -1,184 +1,63 @@
-<img width="1246" height="870" alt="image" src="https://github.com/user-attachments/assets/629f1f36-fa86-4ebc-ac62-d65534111034" />
-<img width="1253" height="866" alt="image" src="https://github.com/user-attachments/assets/ea21a9e8-1c64-4ee9-a306-57b06b774644" />
+# News Explorer (React + Material UI)
 
-## 📰 Project: **Material UI News Explorer**
+A news search app built while learning Material UI at ITI. You search a topic and get the latest articles from
+[NewsAPI](https://newsapi.org/) as cards you can open or share. The UI switches between light and dark mode and
+between English and Arabic (right-to-left). A second page shows MUI form controls.
 
-### 📋 Overview
+![Article search results](docs/light.webp)
 
-This React project is a **News Explorer App** built with **Material UI (MUI)** and **Redux Toolkit**.
-It fetches live articles from the [NewsAPI](https://newsapi.org/) and allows users to:
+| Dark mode | Arabic (RTL) | MUI form |
+|---|---|---|
+| ![Dark mode](docs/dark.webp) | ![Arabic, right-to-left](docs/rtl.webp) | ![Evaluation form](docs/form.webp) |
 
-* Search topics dynamically
-* View filtered suggestions
-* Share or bookmark news
-* Toggle between **light/dark theme**
-* Switch between **English and Arabic** languages
+## Features
 
----
+- **Search** with a debounce: the request goes out when typing pauses (or on Enter), not on every key,
+  which matters on NewsAPI's 100-requests-a-day free plan. Stale responses are dropped.
+- **Suggestions**: matching headlines from the loaded results open the article directly.
+- **Cards** with source, date, image and description; read or share (Web Share API, clipboard fallback).
+- **Light/dark mode** through an MUI theme driven by Redux; **English/Arabic** switches the layout to RTL.
+- Loading spinner and clear errors for a missing key or an exhausted daily limit.
+- Responsive grid and a drawer menu on phones.
 
-### ⚙️ Tech Stack
+## Tech stack
 
-| Category         | Tools / Libraries          |
-| ---------------- | -------------------------- |
-| Frontend         | React 19, Vite             |
-| UI Framework     | MUI v7, Emotion            |
-| State Management | Redux Toolkit              |
-| HTTP Client      | Axios                      |
-| Routing          | React Router DOM v7        |
-| Language Support | Custom Redux slice (EN/AR) |
-| Build Tools      | Vite + ESLint              |
+React 19 · Vite · Material UI 7 (Emotion) · Redux Toolkit · React Router 7 · Axios
 
----
-
-### 📁 Folder Structure
-
-```
-materialui/
-│
-├── src/
-│   ├── pages/
-│   │   ├── Home.jsx          # Main news page
-│   │   └── Form.jsx          # Example form page
-│   │
-│   ├── components/
-│   │   ├── MainNavBar.jsx    # Navbar with theme/lang toggles
-│   │   └── MuiCardHeader.jsx # Optional card header demo
-│   │
-│   ├── AxiosInstance/
-│   │   └── AxiosInstance.js  # Axios setup with interceptors
-│   │
-│   ├── store/
-│   │   └── store.js          # Redux store (theme + language slices)
-│   │
-│   ├── Locals/
-│   │   ├── en.js             # English text
-│   │   └── ar.js             # Arabic text
-│   │
-│   ├── App.jsx               # Root component with router
-│   ├── App.css
-│   └── main.jsx
-│
-├── package.json
-└── vite.config.js
-```
-
----
-
-### 🚀 Getting Started
-
-#### 1️⃣ Install Dependencies
+## Running locally
 
 ```bash
 npm install
+cp .env.example .env    # put your free NewsAPI key in NEWSAPI_KEY
+npm run dev             # http://localhost:5173
 ```
 
-#### 2️⃣ Run Development Server
+The key stays on your machine: the Vite dev server proxies `/newsapi` to NewsAPI and adds the key server-side,
+so it never appears in the browser bundle.
 
-```bash
-npm run dev
+**Why there is no live demo:** NewsAPI's free plan only accepts requests from `localhost`, so a static deployment
+(GitHub Pages) can't fetch articles. Running it locally as above works.
+
+## Project structure
+
+```
+src/
+├── pages/Home.jsx            News search
+├── pages/Form.jsx            MUI form controls demo
+├── components/               Navbar, drawer, menus, form controls
+├── AxiosInstance/            Axios client for the /newsapi proxy
+├── Redux-Toolkit/Store.jsx   Theme and language slices
+└── Locals/                   English and Arabic strings
 ```
 
-Then open [http://localhost:5173](http://localhost:5173)
+## Changes after the course
 
-#### 3️⃣ Build for Production
-
-```bash
-npm run build
-```
-
----
-
-### 🧠 Features Explained
-
-#### 🔍 **Home Page (News Search)**
-
-* Uses `useState`, `useEffect`, and `useRef` for dynamic search.
-* Fetches from `https://newsapi.org/v2/everything`.
-* Filters results by title in real time.
-* Displays results using responsive MUI `<Grid>` + `<Card>` components.
-
-#### 🌐 **Axios Interceptor**
-
-```js
-axoinstance.interceptors.request.use((request) => {
-  request.params = { ...request.params, apiKey: "YOUR_API_KEY" };
-  return request;
-});
-```
-
-👉 Automatically attaches your API key to every request.
-
-#### 🌓 **Theme & Language Redux Slices**
-
-* `themeSlice` toggles between `light` and `dark` UI.
-* `langSlice` toggles between English and Arabic text (RTL/LTR layout).
-
-#### 🧭 **Routing**
-
-* `/` → Home
-* `/form` → Sample Form Page
-
----
-
-### 🧩 Example Redux Store Setup
-
-```js
-const myStore = configureStore({
-  reducer: {
-    theme: themeSlice.reducer,
-    myLang: langSlice.reducer,
-  },
-});
-```
-
-Dispatch actions from UI buttons:
-
-```js
-dispatch(toggleTheme());
-dispatch(toggleLang());
-```
-
----
-
-### 🧱 Example MUI Styling Highlights
-
-```jsx
-<Card
-  sx={{
-    width: "100%",
-    borderRadius: 3,
-    boxShadow: "0 4px 18px rgba(0,0,0,0.08)",
-    transition: "transform 0.25s, box-shadow 0.25s",
-    "&:hover": {
-      transform: "translateY(-6px)",
-      boxShadow: "0 8px 30px rgba(0,0,0,0.15)",
-    },
-  }}
->
-```
-
----
-
-### 🔑 API Reference
-
-Uses **NewsAPI.org** (requires API key).
-
-Replace the default key in:
-`src/AxiosInstance/AxiosInstance.js`
-
-```js
-apiKey: "YOUR_NEWSAPI_KEY",
-```
-
----
-
-### 🧰 Scripts
-
-| Command           | Description              |
-| ----------------- | ------------------------ |
-| `npm run dev`     | Run dev server           |
-| `npm run build`   | Build for production     |
-| `npm run preview` | Preview production build |
-| `npm run lint`    | Run ESLint               |
-
----
+- The API key was hardcoded in the source and sent through the public `cors-anywhere` demo proxy, which no longer
+  works; requests now go through a local proxy that keeps the key out of the bundle.
+- The deployed site showed a blank page: the router had no `basename` for the GitHub Pages sub-path, and the logo
+  paths were absolute.
+- Dark mode toggled Bootstrap classes that weren't installed; it now uses MUI's theme (`palette.mode`).
+- Every keystroke sent a request; search is now debounced.
+- The grid used MUI v5 `item`/`xs` props that MUI v7 ignores; it now uses `size`.
+- Removed the Vite starter CSS, the dead About/Contact links and bookmark button; the mobile menu button now opens
+  a drawer.
