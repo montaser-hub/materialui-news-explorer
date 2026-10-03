@@ -11,7 +11,7 @@ const CardInfo = () => {
           "& .MuiCardHeader-title": { fontWeight: "bold", fontSize: "50px" },
         }}
         avatar={<PlaylistAddCheckSharpIcon sx={{ marginTop: "-20px", fontSize: "50px", bgcolor: "greenyellow" }} />}
-        title="Evaluaton Form"
+        title="Evaluation Form"
         subheader="Please answer the following questions"
       />
     </>

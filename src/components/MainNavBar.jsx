@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppBar, Toolbar, IconButton, Box } from "@mui/material";
+import { Link } from "react-router-dom";
+import { AppBar, Toolbar, IconButton, Box, Drawer, List, ListItemButton, ListItemText } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { toggleLang, toggleTheme } from "../Redux-Toolkit/Store";
 import NavLogo from "./NavLogo";
 import NavLinks from "./NavLinks";
+import { NAV_LINKS } from "./navItems";
 import NavActions from "./Actions";
 
 export default function Navbar() {
@@ -35,6 +37,7 @@ export default function Navbar() {
             color="inherit"
             edge="start"
             onClick={handleDrawerToggle}
+            aria-label="Open menu"
             sx={{ display: { lg: "none" } }}
           >
             <MenuIcon />
@@ -56,6 +59,16 @@ export default function Navbar() {
           content={content}
         />
       </Toolbar>
+      {/* Phone and tablet menu */}
+      <Drawer open={mobileOpen} onClose={handleDrawerToggle} sx={{ display: { lg: "none" } }}>
+        <List sx={{ width: 220, pt: 9 }}>
+          {NAV_LINKS.map((item) => (
+            <ListItemButton key={item.to} component={Link} to={item.to} onClick={handleDrawerToggle}>
+              <ListItemText primary={item.name} />
+            </ListItemButton>
+          ))}
+        </List>
+      </Drawer>
     </AppBar>
   );
 }
